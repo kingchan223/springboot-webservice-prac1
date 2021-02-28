@@ -1,19 +1,19 @@
-buildscript{//이 프로젝트의 플러그인 의존성 관리를 위한 설정
-    ext{//build.gradle에서 사용하는 전역변수를 설정하겠다. 여기서는 springBoodVersion전역변수를 생성하고 그 값을 2.1.7릴리즈로하겠다는의미.
-        springBootversion = '2.1.7.RELEASE'
+buildscript{
+    ext{
+        springBootVersion = '2.1.7.RELEASE'
     }
     repositories{
-        mavenCentral()//과거에 많이 사용하던 라이브러리(라이브러리 업로드 난이도 때문에 jcenter을 많이 사용함)
-        jcenter()//라이브러리 업로드를 간단하게.여기에 업로드하면 mavenCentral에도 업로드된다.
+        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootversion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'//스프링 부트의 의존성들을 관리해주는 플러그인
+apply plugin: 'io.spring.dependency-management'
 
 group 'groupid'
 version '1.0-SNAPSHOT'
@@ -22,7 +22,10 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-dependencies {//프로젝트 개발에 필요한 의존성들을 선언하는 곳
+dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.projectlombok:lombok')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('com.h2database:h2')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
