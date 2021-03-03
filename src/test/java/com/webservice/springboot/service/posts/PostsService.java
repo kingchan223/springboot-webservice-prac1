@@ -3,12 +3,16 @@ package com.webservice.springboot.service.posts;
 
 import com.webservice.springboot.domain.posts.Posts;
 import com.webservice.springboot.domain.posts.PostsRepository;
+import com.webservice.springboot.web.dto.PostsListResponseDto;
 import com.webservice.springboot.web.dto.PostsResponseDto;
 import com.webservice.springboot.web.dto.PostsSaveRequestDto;
 import com.webservice.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor // 얘가 서비스에서 자동 Bean등록역할을 해준다.
 @Service
@@ -32,5 +36,11 @@ public class PostsService {
         Posts entity = postsRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
                 return new PostsResponseDto(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc(){
+        //map(posts->new PostsListResponseDto(posts)) :postsRepository결과로 넘어온 Posts의 Stream을 map을 통해 PostsListRespnseDto변환 -> List로 반환하는 메소드.
+        return postsRepository.findAllDesc().stream().map(posts->new PostsListResponseDto(posts)).collect(Collectors.toList());
     }
 }
