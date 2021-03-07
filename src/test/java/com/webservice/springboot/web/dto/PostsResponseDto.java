@@ -1,6 +1,7 @@
 package com.webservice.springboot.web.dto;
 
 import com.webservice.springboot.domain.posts.Posts;
+import junit.runner.Version;
 
 public class PostsResponseDto {
 
@@ -15,4 +16,6 @@ public class PostsResponseDto {
         this.content = entity.getContent();
         this.author = entity.getAuthor();
     }
+
+
 }

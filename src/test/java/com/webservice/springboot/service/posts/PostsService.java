@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,5 +51,20 @@ public class PostsService {
     public List<PostsListResponseDto> findAllDesc(){
         //map(posts->new PostsListResponseDto(posts)) :postsRepository결과로 넘어온 Posts의 Stream을 map을 통해 PostsListRespnseDto변환 -> List로 반환하는 메소드.
         return postsRepository.findAllDesc().stream().map(posts->new PostsListResponseDto(posts)).collect(Collectors.toList());
+    }
+    @Transactional
+    public List<PostsResponseDto> findByAuthor(String author) {
+        List<Posts> posts = postsRepository.findByAuthorContaining(author);
+        List<PostsResponseDto> postsDtoList = new ArrayList<>();
+        if(posts.isEmpty())
+            return postsDtoList;
+        for(Posts post: posts){
+            postsDtoList.add(this.SearchPostsResponseDto(post));
+        }
+        return postsDtoList;
+    }
+
+    private PostsResponseDto SearchPostsResponseDto(Posts post) {
+        return new PostsResponseDto(post);
     }
 }

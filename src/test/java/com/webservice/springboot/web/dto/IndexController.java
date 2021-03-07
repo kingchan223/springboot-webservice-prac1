@@ -29,4 +29,11 @@ public class IndexController {
         model.addAttribute("post",dto);
         return "posts-update";
     }
+    
+    @GetMapping("/users/posts/{author}")
+    public String usersPosts(@PathVariable String author, Model model){
+        System.out.println("why?: "+author);
+        model.addAttribute("authors",postsService.findByAuthor(author));
+        return "users-posts";
+    }
 }

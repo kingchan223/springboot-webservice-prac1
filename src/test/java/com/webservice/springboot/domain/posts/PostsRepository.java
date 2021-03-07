@@ -14,4 +14,6 @@ public interface PostsRepository extends JpaRepository<Posts, Long>{
 
     @Query("SELECT p FROM Posts p ORDER BY p.id DESC")// JPA제공하지 않는 메소드는 이처럼 쿼리를 사용해도 된다.
     List<Posts> findAllDesc();
+
+    List<Posts> findByAuthorContaining(String author);
 }
