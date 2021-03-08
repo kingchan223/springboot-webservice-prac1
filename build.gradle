@@ -18,7 +18,6 @@ apply plugin: 'io.spring.dependency-management'
 group 'groupid'
 version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
-
 repositories {
     mavenCentral()
 }
@@ -29,4 +28,6 @@ dependencies {
     compile('com.h2database:h2')
     compile('org.springframework.boot:spring-boot-starter-mustache')
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 }

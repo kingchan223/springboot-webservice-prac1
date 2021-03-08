@@ -23,7 +23,7 @@ public class IndexController {
         return "posts-save";
     }
 
-    @GetMapping("/posts/update/{id}")
+    @GetMapping("/posts/update/{id}")// url의 id를 변수로 받아서 그걸 View로 보낼때 Model객체를 사용함.
     public String postsUpdate(@PathVariable Long id,Model model){
         PostsResponseDto dto = postsService.findById(id);// postService.findById는 entity를 dto로 만들어서 반환해준다.
         model.addAttribute("post",dto);
@@ -32,8 +32,12 @@ public class IndexController {
     
     @GetMapping("/users/posts/{author}")
     public String usersPosts(@PathVariable String author, Model model){
-        System.out.println("why?: "+author);
         model.addAttribute("authors",postsService.findByAuthor(author));
         return "users-posts";
+    }
+
+    @GetMapping("/loginForm")
+    public String loginForm(){
+        return "loginForm";
     }
 }
