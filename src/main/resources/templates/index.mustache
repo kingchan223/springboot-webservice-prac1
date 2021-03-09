@@ -1,13 +1,17 @@
 {{>layout/header}}
-<span class="d-inline-flex p-2">
-    <h1 >스프링부트로 시작하는 웹 서비스 Ver.2</h1>
-    <button type="button" class="btn btn-dark btn-lg ml-5">Dark</button>
-</span>
+<h1 class="d-inline-flex p-2">스프링부트로 시작하는 웹 서비스 Ver.2</h1>
+    <button type="button" class="btn btn-dark btn-lg ml-5 d-inline-flex p-2">Dark</button>
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-6">
             <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
-            <a href="/loginForm" role="button" class="btn btn-primary">로그인</a>
+            {{#username}}
+                Logged in as: <span id="user">{{username}}</span>
+                <a href="/logout" class="btn btn-info active" role="button">Logout</a><!--스프링 시큐리티에서 별도로 제공하는 로그아웃url, 컨트롤러 지정할 필요없음-->
+            {{/username}}
+            {{^username}}
+                <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+            {{/username}}
         </div>
     </div>
     <br>
