@@ -1,5 +1,6 @@
 package com.webservice.springboot.web.dto;
 
+import com.webservice.springboot.config.auth.LoginUser;
 import com.webservice.springboot.config.auth.dto.SessionUser;
 import com.webservice.springboot.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,11 @@ public class IndexController {
     private HttpSession httpSession;
 
     @GetMapping("/")// 머스테치 스타터덕에 앞의 경로와 귀의 확장자는 자동으로 붙는다.(ViewResolver가 처리)
-    public String index(Model model){// postsService.findAllDesc()로 가져온 결과를 posts로 index.mustache에 전달.
+    public String index(Model model, @LoginUser SessionUser user){// postsService.findAllDesc()로 가져온 결과를 posts로 index.mustache에 전달.
         model.addAttribute("posts", postsService.findAllDesc());
-        SessionUser user = (SessionUser)httpSession.getAttribute("user");// this.httpSession is null 오류
+        //SessionUser user = (SessionUser)httpSession.getAttribute("user");// this.httpSession is null 오류
         if(user != null){
-            model.addAttribute("userName",user.getName());
+            model.addAttribute("username",user.getName());
         }
         return "index";//.addAttribute: view에 전달할 데이터를 key:value쌍으로 전달가능.
     }
@@ -44,5 +45,4 @@ public class IndexController {
         model.addAttribute("authors",postsService.findByAuthor(author));
         return "users-posts";
     }
-
 }

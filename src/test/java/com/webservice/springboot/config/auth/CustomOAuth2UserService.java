@@ -1,6 +1,5 @@
 package com.webservice.springboot.config.auth;
 
-
 import com.webservice.springboot.config.auth.dto.OAuthAttributes;
 import com.webservice.springboot.config.auth.dto.SessionUser;
 import com.webservice.springboot.domain.user.User;
